@@ -51,17 +51,9 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {/* <button
-          onClick={handleLogin}
-          className="w-full bg-blue-500 text-white p-2 rounded"
-        >
-          Login
-        </button> */}
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-500 text-white p-2 rounded"
-        >
+          className="w-full bg-blue-500 text-white p-2 rounded">
           Login
         </button>
       </div>
