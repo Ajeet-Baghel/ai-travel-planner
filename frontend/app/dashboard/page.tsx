@@ -61,7 +61,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-xl">
-        {/* Logout */}
+       
         <button
           onClick={handleLogout}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mb-4 w-full">
@@ -111,7 +111,7 @@ export default function Dashboard() {
 
         {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
 
-        {/* Result */}
+       
         {result && (
           <div className="mt-6 bg-gray-50 p-4 rounded">
             <h2 className="text-xl font-bold mb-3">📅 Itinerary</h2>
