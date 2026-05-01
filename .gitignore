@@ -1,11 +1,28 @@
-
-.env
-backend/.env
-
-
+# dependencies
 node_modules/
-backend/node_modules/
-frontend/node_modules/
 
+# next.js
+.next/
+out/
 
+# build
+build/
+
+# env files
+.env*
+backend/.env
+frontend/.env
+
+# logs
 *.log
+
+# misc
+.DS_Store
+*.pem
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
