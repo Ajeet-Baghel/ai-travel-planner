@@ -23,6 +23,7 @@ export default function LoginPage() {
       if (data.token) {
         localStorage.setItem("token", data.token);
         alert("Login Successful");
+        window.location.href = "/dashboard";
       } else {
         alert("Login Failed");
       }
