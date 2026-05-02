@@ -26,6 +26,7 @@ export default function LoginPage() {
         window.location.href = "/dashboard";
       } else {
         alert("Login Failed");
+        window.location.href = "/register";
       }
     } catch (error) {
       console.error(error);

@@ -1,4 +1,4 @@
-// require("dotenv").config();
+ require("dotenv").config();
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -47,6 +47,29 @@
 async function generateTravelPlan(data) {
   const { destination, days, budget, interests } = data;
 
+  try {
+    // 🔥 Try real AI first (you can plug Gemini/OpenAI later)
+    
+    throw new Error("AI not configured"); // temporary
+
+  } catch (error) {
+    console.log("Using mock AI fallback");
+
+    // ✅ fallback mock (always works)
+    const itinerary = [];
+
+    for (let i = 1; i <= days; i++) {
+      itinerary.push({
+        day: i,
+        activities: [
+          `Explore ${destination}`,
+          `Enjoy ${interests}`,
+          `Stay within ${budget} budget`
+        ]
+      });
+    }   
+
+
   return JSON.stringify({
     itinerary: [
       {
@@ -80,3 +103,4 @@ async function generateTravelPlan(data) {
 }
 
 module.exports = generateTravelPlan;
+}
