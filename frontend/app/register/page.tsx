@@ -22,6 +22,7 @@ export default function RegisterPage() {
       console.log("REGISTER RESPONSE:", data);
       if (res.ok) {
         alert("Registration Successful");
+         window.location.href = "/login";
       } else {
         alert(data.msg || "Registration Failed");
       }
