@@ -11,7 +11,7 @@ export default function TripDetails() {
     const fetchTrip = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:5000/api/trip/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trip/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

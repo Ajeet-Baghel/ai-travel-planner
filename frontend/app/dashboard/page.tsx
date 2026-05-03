@@ -9,7 +9,7 @@ export default function Dashboard() {
     const fetchTrips = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/api/trip/my", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trip/my`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
