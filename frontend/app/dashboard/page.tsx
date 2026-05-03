@@ -2,10 +2,13 @@
 
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import { useRef } from "react";
+import cities from "cities-list";
 
 import { useState, useEffect } from "react";
 
 export default function Dashboard() {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const libraries = ["places"];
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [destination, setDestination] = useState("");
@@ -21,6 +24,24 @@ export default function Dashboard() {
       window.location.href = "/login";
     }
   }, []);
+
+  const handleSearch = (value: string) => {
+  setDestination(value);
+
+  if (value.length > 1) {
+    const cityList = Object.keys(cities);
+
+    const filtered = cityList
+      .filter((city) =>
+        city.toLowerCase().includes(value.toLowerCase())
+      )
+      .slice(0, 5);
+
+    setSuggestions(filtered);
+  } else {
+    setSuggestions([]);
+  }
+};
 
   const handleGenerate = async () => {
     try {
@@ -78,7 +99,7 @@ export default function Dashboard() {
 
         <div className="space-y-3">
           
-           <LoadScript
+           {/* <LoadScript
   googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
   libraries={["places"]}
 >
@@ -97,8 +118,35 @@ export default function Dashboard() {
       onChange={(e) => setDestination(e.target.value)}
     />
   </Autocomplete>
-</LoadScript>
+</LoadScript> */}
           
+
+          <div className="relative">
+  <input
+    type="text"
+    placeholder="Search Destination"
+    className="w-full p-2 border rounded"
+    value={destination}
+    onChange={(e) => handleSearch(e.target.value)}
+  />
+
+  {suggestions.length > 0 && (
+    <ul className="absolute bg-white border w-full mt-1 rounded shadow z-10">
+      {suggestions.map((city, index) => (
+        <li
+          key={index}
+          className="p-2 hover:bg-gray-200 cursor-pointer"
+          onClick={() => {
+            setDestination(city);
+            setSuggestions([]);
+          }}
+        >
+          {city}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
 
           <input
             placeholder="Days"
