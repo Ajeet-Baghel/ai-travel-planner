@@ -44,63 +44,80 @@
 
 // module.exports = generateTravelPlan;
 
+
+require("dotenv").config();
+const Groq = require("groq-sdk");
+
+// Initialize Groq
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 async function generateTravelPlan(data) {
   const { destination, days, budget, interests } = data;
 
   try {
-    // 🔥 Try real AI first (you can plug Gemini/OpenAI later)
-    
-    throw new Error("AI not configured"); // temporary
+    const prompt = `
+You are a travel planner AI.
+
+Create a ${days}-day travel itinerary for ${destination}.
+
+Budget: ${budget}
+Interests: ${interests}
+
+Return ONLY valid JSON (no explanation, no extra text) in this format:
+{
+  "itinerary": [
+    { "day": 1, "activities": ["..."] }
+  ],
+  "hotels": ["..."]
+}
+`;
+
+    const completion = await groq.chat.completions.create({
+      model: "llama3-70b-8192",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+    });
+
+    const text = completion.choices[0].message.content;
+
+    console.log("RAW AI RESPONSE:", text); // Debug
+
+    // Clean markdown formatting if present
+    const clean = text.replace(/```json|```/g, "").trim();
+
+    // Parse JSON
+    const parsed = JSON.parse(clean);
+
+    return parsed; // ✅ MUST return object
 
   } catch (error) {
-    console.log("Using mock AI fallback");
+    console.log("Groq failed, using fallback:", error.message);
 
-    // ✅ fallback mock (always works)
+    // Fallback mock (always works)
     const itinerary = [];
 
     for (let i = 1; i <= days; i++) {
       itinerary.push({
         day: i,
         activities: [
-          `Explore ${destination}`,
-          `Enjoy ${interests}`,
-          `Stay within ${budget} budget`
+          `Explore popular places in ${destination}`,
+          `Enjoy ${interests} activities`,
+          `Experience local food within ${budget} budget`
         ]
       });
-    }   
+    }
 
-
-  return JSON.stringify({
-    itinerary: [
-      {
-        day: 1,
-        activities: [
-          `Explore ${destination} main attractions`,
-          `Try local ${interests} experiences`
-        ]
-      },
-      {
-        day: 2,
-        activities: [
-          `Visit famous spots in ${destination}`,
-          `Enjoy ${budget} level dining`
-        ]
-      }
-    ],
-    budget: {
-      flights: "$300",
-      hotel: "$200",
-      food: "$150",
-      activities: "$100",
-      total: "$750"
-    },
-    hotels: [
-      `${destination} Budget Inn`,
-      `${destination} Comfort Hotel`,
-      `${destination} Luxury Palace`
-    ]
-  });
+    return {
+      itinerary,
+      hotels: [
+        `${destination} Budget Inn`,
+        `${destination} Comfort Hotel`,
+        `${destination} Luxury Stay`
+      ]
+    };
+  }
 }
 
 module.exports = generateTravelPlan;
-}

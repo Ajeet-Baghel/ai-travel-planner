@@ -12,9 +12,7 @@ exports.createTrip = async (req, res) => {
       interests,
     });
 
-    const cleanResponse = aiResponse.replace(/```json|```/g, "").trim();
-
-    const parsedData = JSON.parse(cleanResponse);
+    const parsedData = aiResponse; 
 
     const trip = await Trip.create({
       userId: req.user,
@@ -30,7 +28,6 @@ exports.createTrip = async (req, res) => {
     res.json(trip);
   } catch (error) {
     console.error(error);
-    
     res.status(500).json({ msg: "Error generating trip" });
   }
 };

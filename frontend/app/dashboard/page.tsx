@@ -1,5 +1,8 @@
 "use client";
 
+import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import { useRef } from "react";
+
 import { useState, useEffect } from "react";
 
 export default function Dashboard() {
@@ -10,6 +13,7 @@ export default function Dashboard() {
   const [budget, setBudget] = useState("");
   const [interests, setInterests] = useState("");
   const [result, setResult] = useState<any>(null);
+  const autocompleteRef = useRef<any>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -73,12 +77,28 @@ export default function Dashboard() {
         </h1>
 
         <div className="space-y-3">
-          <input
-            placeholder="Destination"
-            className="w-full p-2 border rounded"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-          />
+          
+           <LoadScript
+  googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
+  libraries={["places"]}
+>
+  <Autocomplete
+    onLoad={(ref) => (autocompleteRef.current = ref)}
+    onPlaceChanged={() => {
+      const place = autocompleteRef.current.getPlace();
+      setDestination(place.formatted_address || place.name);
+    }}
+  >
+    <input
+      type="text"
+      placeholder="Search Destination"
+      className="w-full p-2 border rounded mb-3"
+      value={destination}
+      onChange={(e) => setDestination(e.target.value)}
+    />
+  </Autocomplete>
+</LoadScript>
+          
 
           <input
             placeholder="Days"
