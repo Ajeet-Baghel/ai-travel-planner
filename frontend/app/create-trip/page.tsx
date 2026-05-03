@@ -1,4 +1,6 @@
 "use client";
+import Navbar from "@/components/Navbar";
+
 import { useState } from "react";
 import cities from "cities-list";
 
@@ -29,7 +31,7 @@ export default function CreateTrip() {
     }
   };
 
-  // 🔥 API CALL FUNCTION
+  
   const handleGenerate = async () => {
     try {
       setLoading(true);
@@ -61,6 +63,10 @@ export default function CreateTrip() {
   };
 
   return (
+
+     <div>
+    <Navbar />
+    
     <div className="min-h-screen bg-gray-50 p-6">
 
       <h1 className="text-3xl font-bold text-center mb-2">
@@ -179,7 +185,12 @@ export default function CreateTrip() {
             ))}
           </ul>
         </div>
+
+        
       )}
     </div>
+    </div>
+
+    
   );
 }

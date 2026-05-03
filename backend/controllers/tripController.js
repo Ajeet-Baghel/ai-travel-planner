@@ -31,3 +31,7 @@ exports.createTrip = async (req, res) => {
     res.status(500).json({ msg: "Error generating trip" });
   }
 };
+exports.getMyTrips = async (req, res) => {
+  const trips = await Trip.find({ userId: req.user });
+  res.json(trips);
+};
