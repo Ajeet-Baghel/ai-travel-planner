@@ -1,33 +1,70 @@
 # 🌍 AI Travel Planner
 
-A full-stack web app that generates personalized travel itineraries using AI.
-Users can log in, create trips based on preferences, and view saved trips.
+An AI-powered full-stack web application that generates personalized travel itineraries based on user preferences such as destination, number of days, budget, and interests.
+
+---
 
 ## 🚀 Live Demo
 
-Frontend: https://ajeet-ai-travel-planner.netlify.app/
-Backend: https://ai-travel-planner-6mxe.onrender.com
+* 🌐 Frontend: https://ajeet-ai-travel-planner.netlify.app
+* ⚙️ Backend: https://ai-travel-planner-6mxe.onrender.com
+
+---
+
+## 📦 Project Structure (Monorepo)
+
+This project follows a **monorepo architecture**, where both frontend and backend are managed in a single repository:
+
+```
+ai-travel-planner/
+├── frontend/   → Next.js application (UI)
+├── backend/    → Node.js + Express API
+└── README.md
+```
+
+---
 
 ## ✨ Features
 
-* 🔐 Authentication (Login/Register)
-* 🧭 Create Trip (destination, days, budget, interests)
-* 🤖 AI-generated itinerary (via Groq API)
-* 💾 Save trips to database (MongoDB)
-* 📋 Dashboard to view trips
-* 🔎 Trip details page (day-wise plan + hotels)
+* 🔐 User Authentication (Register / Login)
+* 🧭 Create Personalized Trips
+* 🤖 AI-based Itinerary Generation
+* 💾 Save Trips in Database
+* 📋 Dashboard to View All Trips
+* 🔎 Detailed Trip View (Itinerary + Hotels)
+* ⚡ Fallback System (Mock AI if API fails)
+
+---
+
+## 🧠 AI Integration
+
+The application uses an AI service (Groq API) to generate travel plans.
+
+### 🔁 Fallback Mechanism
+
+If the AI service fails or is unavailable:
+
+* The app switches to a **mock AI response**
+* Ensures the application **never breaks**
+* Guarantees consistent user experience
+
+👉 This improves reliability and fault tolerance.
+
+---
 
 ## 🏗 Tech Stack
 
-* Frontend: Next.js + Tailwind CSS
-* Backend: Node.js + Express
-* Database: MongoDB Atlas
-* AI: Groq API
-* Deployment: Netlify (frontend), Render (backend)
+* **Frontend:** Next.js, Tailwind CSS
+* **Backend:** Node.js, Express
+* **Database:** MongoDB Atlas
+* **AI:** Groq API (with fallback logic)
+* **Deployment:** Netlify (Frontend), Render (Backend)
 
-## ⚙️ Setup (Local)
+---
 
-### Backend
+## ⚙️ Setup Instructions (Local)
+
+### 🔹 Backend
 
 ```bash
 cd backend
@@ -35,7 +72,9 @@ npm install
 node index.js
 ```
 
-### Frontend
+---
+
+### 🔹 Frontend
 
 ```bash
 cd frontend
@@ -43,29 +82,37 @@ npm install
 npm run dev
 ```
 
+---
+
 ## 🔐 Environment Variables
 
-Backend:
+### Backend (.env)
 
 ```
-MONGO_URI=xxxxxx
-JWT_SECRET=xxxxxx
-GROQ_API_KEY=xxxxxx
+MONGO_URI=xxxxxx...
+JWT_SECRET=xxxxx...
+GROQ_API_KEY=xxxxx
 ```
 
-Frontend:
+---
+
+### Frontend (.env.local)
 
 ```
 NEXT_PUBLIC_API_URL=https://ai-travel-planner-6mxe.onrender.com
 ```
 
+---
+
 ## 🧠 Future Improvements
 
-* Editable itinerary (add/remove activities)
-* Regenerate specific day with AI
-* Map integration
-* Budget visualization
+* ✏️ Editable itinerary (add/remove activities)
+* 🔁 Regenerate specific day using AI
+* 🗺 Map integration (Google Places / Open alternatives)
+* 📊 Budget analytics
+
+---
 
 ## 👤 Author
 
-Ajeet Baghel
+**Ajeet Baghel**
