@@ -1,27 +1,17 @@
-// const express = require("express");
-// const router = express.Router();
-// const { createTrip } = require("../controllers/tripController");
-// const authMiddleware = require("../middleware/authMiddleware");
-
-// router.post("/create", authMiddleware, createTrip);
-// router.get("/my", authMiddleware, getMyTrips);
-
-// module.exports = router;
-
+const express = require("express");
+const authMiddleware = require("../middleware/authMiddleware");
 const {
   createTrip,
   getMyTrips,
   getTripById,
-  addActivity,
-  removeActivity,
-  regenerateDay,
+  deleteTrip,
 } = require("../controllers/tripController");
+
+const router = express.Router();
 
 router.post("/create", authMiddleware, createTrip);
 router.get("/my", authMiddleware, getMyTrips);
 router.get("/:id", authMiddleware, getTripById);
+router.delete("/:id", authMiddleware, deleteTrip);
 
-// ✨ NEW
-router.put("/:id/add-activity", authMiddleware, addActivity);
-router.put("/:id/remove-activity", authMiddleware, removeActivity);
-router.post("/:id/regenerate-day", authMiddleware, regenerateDay);
+module.exports = router;

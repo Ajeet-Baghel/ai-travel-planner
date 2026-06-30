@@ -26,6 +26,7 @@ const tripSchema = new mongoose.Schema({
   },
 
   hotels: [String],
+  visitingPlaces: [String],
 }, { timestamps: true });
 
 module.exports = mongoose.model("Trip", tripSchema);
